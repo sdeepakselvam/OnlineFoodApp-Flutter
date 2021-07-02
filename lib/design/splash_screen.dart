@@ -41,9 +41,9 @@ class _StateSplashScreen extends State<SplashScreen> {
   void _moveToNextPage() async {
     Navigator.pushReplacementNamed(context, Routes.introScreen);
     if (AppConfiguration().isUserLoggedIn) {
-      //   Navigator.pushReplacementNamed(context, Routes.main);
+         Navigator.pushReplacementNamed(context, Routes.homeScreen);
     } else {
-      //Navigator.pushReplacementNamed(context, Routes.validationPage);
+      Navigator.pushReplacementNamed(context, Routes.introScreen);
     }
   }
 

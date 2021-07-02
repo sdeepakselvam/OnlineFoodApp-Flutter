@@ -4,11 +4,11 @@ import 'package:online_food_app/ui_utils/ui_dimens.dart';
 class CommonIcon extends StatelessWidget {
   const CommonIcon(
       {this.iconPath,
-        this.iconColor,
-        this.iconData,
-        this.iconWidth,
-        this.iconHeight,
-        this.onPressed});
+      this.iconColor,
+      this.iconData,
+      this.iconWidth,
+      this.iconHeight,
+      this.onPressed});
 
   final String iconPath;
   final IconData iconData;
@@ -26,18 +26,18 @@ class CommonIcon extends StatelessWidget {
       },
       child: iconData != null
           ? Icon(
-        iconData,
-        size: UIDimens.size25,
-        color: iconColor,
-      )
+              iconData,
+              size: UIDimens.size25,
+              color: iconColor,
+            )
           : Image.asset(
-        iconPath,
-        height: iconHeight ?? UIDimens.size25,
-        width: iconWidth ?? UIDimens.size25,
-        color: iconColor,
-        fit: BoxFit.fill,
-        alignment: Alignment.topLeft,
-      ),
+              iconPath,
+              height: iconHeight ?? UIDimens.size25,
+              width: iconWidth ?? UIDimens.size25,
+              color: iconColor,
+              fit: BoxFit.fill,
+              alignment: Alignment.topLeft,
+            )
     );
   }
 }

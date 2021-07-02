@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:online_food_app/controllers/intro_screen_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:online_food_app/locale/localizations.dart';
+import 'package:online_food_app/ui_utils/string_resources.dart';
 import 'package:online_food_app/ui_utils/styles.dart';
 import 'package:online_food_app/ui_utils/ui_colors.dart';
 import 'package:online_food_app/ui_utils/ui_dimens.dart';
@@ -114,22 +116,28 @@ class _IntroScreen extends State<IntroScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (_controller.currentSliderIndex == 0) ...[
-              Text("Get Express", style: Styles.boldStyle),
+              Text(Translations.of(context).text(StringResources.getExpress),
+                  style: Styles.boldStyle),
               Space(customValue: UIDimens.size2),
-              Text("for faster deliveries.", style: Styles.boldStyle)
+              Text(Translations.of(context).text(StringResources.fastDelivery),
+                  style: Styles.boldStyle)
             ],
             if (_controller.currentSliderIndex == 1) ...[
-              Text("Find your", style: Styles.boldStyle),
+              Text(Translations.of(context).text(StringResources.find),
+                  style: Styles.boldStyle),
               Space(customValue: UIDimens.size2),
-              Text("favourite meat.", style: Styles.boldStyle)
+              Text(Translations.of(context).text(StringResources.favouriteMeat),
+                  style: Styles.boldStyle)
             ],
             if (_controller.currentSliderIndex == 2) ...[
-              Text("Get Deliveries", style: Styles.boldStyle),
+              Text(Translations.of(context).text(StringResources.getDeliveries),
+                  style: Styles.boldStyle),
               Space(customValue: UIDimens.size2),
-              Text("at your doorstep.", style: Styles.boldStyle)
+              Text(Translations.of(context).text(StringResources.doorstep),
+                  style: Styles.boldStyle)
             ],
             Space(customValue: UIDimens.size5),
-            Text("In love with meat register now & get offers",
+            Text(Translations.of(context).text(StringResources.introDesc),
                 style: Styles.appBarTitle)
           ],
         ),
@@ -145,9 +153,11 @@ class _IntroScreen extends State<IntroScreen> {
               child: CommonButton(
                 width: MediaQuery.of(context).size.width,
                 showBorder: true,
-                style: Styles.boldStyle
-                    .copyWith(fontSize: 13, color: UIColors.redColor),
-                title: "LOGIN",
+                style: Styles.boldStyle.copyWith(
+                    fontSize: UIDimens.size13, color: UIColors.redColor),
+                title: Translations.of(context)
+                    .text(StringResources.login)
+                    .toUpperCase(),
                 onPressed: () {
                   Navigator.pushNamed(context, Routes.login);
                 },
@@ -159,8 +169,10 @@ class _IntroScreen extends State<IntroScreen> {
                 width: MediaQuery.of(context).size.width,
                 showBorder: true,
                 style: Styles.boldStyle
-                    .copyWith(fontSize: 13, color: Colors.white),
-                title: "REGISTER",
+                    .copyWith(fontSize: UIDimens.size13, color: Colors.white),
+                title: Translations.of(context)
+                    .text(StringResources.doorstep)
+                    .toUpperCase(),
                 backgroundColor: UIColors.redColor,
                 onPressed: () {},
               ),
