@@ -111,73 +111,63 @@ class _IntroScreen extends State<IntroScreen> {
           }));
 
   Widget get _sliderDescription => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: UIDimens.size20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (_controller.currentSliderIndex == 0) ...[
-              Text(Translations.of(context).text(StringResources.getExpress),
-                  style: Styles.boldStyle),
-              Space(customValue: UIDimens.size2),
-              Text(Translations.of(context).text(StringResources.fastDelivery),
-                  style: Styles.boldStyle)
-            ],
-            if (_controller.currentSliderIndex == 1) ...[
-              Text(Translations.of(context).text(StringResources.find),
-                  style: Styles.boldStyle),
-              Space(customValue: UIDimens.size2),
-              Text(Translations.of(context).text(StringResources.favouriteMeat),
-                  style: Styles.boldStyle)
-            ],
-            if (_controller.currentSliderIndex == 2) ...[
-              Text(Translations.of(context).text(StringResources.getDeliveries),
-                  style: Styles.boldStyle),
-              Space(customValue: UIDimens.size2),
-              Text(Translations.of(context).text(StringResources.doorstep),
-                  style: Styles.boldStyle)
-            ],
-            Space(customValue: UIDimens.size5),
-            Text(Translations.of(context).text(StringResources.introDesc),
-                style: Styles.appBarTitle)
-          ],
-        ),
-      );
+      padding: const EdgeInsets.symmetric(horizontal: UIDimens.size20),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (_controller.currentSliderIndex == 0) ...[
+          Text(Translations.of(context).text(StringResources.getExpress),
+              style: Styles.boldStyle),
+          Space(customValue: UIDimens.size2),
+          Text(Translations.of(context).text(StringResources.fastDelivery),
+              style: Styles.boldStyle)
+        ],
+        if (_controller.currentSliderIndex == 1) ...[
+          Text(Translations.of(context).text(StringResources.find),
+              style: Styles.boldStyle),
+          Space(customValue: UIDimens.size2),
+          Text(Translations.of(context).text(StringResources.favouriteMeat),
+              style: Styles.boldStyle)
+        ],
+        if (_controller.currentSliderIndex == 2) ...[
+          Text(Translations.of(context).text(StringResources.getDeliveries),
+              style: Styles.boldStyle),
+          Space(customValue: UIDimens.size2),
+          Text(Translations.of(context).text(StringResources.doorstep),
+              style: Styles.boldStyle)
+        ],
+        Space(customValue: UIDimens.size5),
+        Text(Translations.of(context).text(StringResources.introDesc),
+            style: Styles.appBarTitle)
+      ]));
 
   Widget get _actionButton => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: UIDimens.size20),
-        child: Row(
+      padding: const EdgeInsets.symmetric(horizontal: UIDimens.size20),
+      child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: CommonButton(
-                width: MediaQuery.of(context).size.width,
-                showBorder: true,
-                style: Styles.boldStyle.copyWith(
-                    fontSize: UIDimens.size13, color: UIColors.redColor),
-                title: Translations.of(context)
-                    .text(StringResources.login)
-                    .toUpperCase(),
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.login);
-                },
-              ),
-            ),
+                child: CommonButton(
+                    width: MediaQuery.of(context).size.width,
+                    showBorder: true,
+                    style: Styles.boldStyle.copyWith(
+                        fontSize: UIDimens.size13, color: UIColors.redColor),
+                    title: Translations.of(context)
+                        .text(StringResources.login)
+                        .toUpperCase(),
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.login);
+                    })),
             HorizontalSpace(),
             Expanded(
-              child: CommonButton(
-                width: MediaQuery.of(context).size.width,
-                showBorder: true,
-                style: Styles.boldStyle
-                    .copyWith(fontSize: UIDimens.size13, color: Colors.white),
-                title: Translations.of(context)
-                    .text(StringResources.doorstep)
-                    .toUpperCase(),
-                backgroundColor: UIColors.redColor,
-                onPressed: () {},
-              ),
-            )
-          ],
-        ),
-      );
+                child: CommonButton(
+                    width: MediaQuery.of(context).size.width,
+                    showBorder: true,
+                    style: Styles.boldStyle.copyWith(
+                        fontSize: UIDimens.size13, color: Colors.white),
+                    title: Translations.of(context)
+                        .text(StringResources.register)
+                        .toUpperCase(),
+                    backgroundColor: UIColors.redColor,
+                    onPressed: () {}))
+          ]));
 }
