@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:online_food_app/ui_utils/app_assets.dart';
 import 'package:online_food_app/utils/app_configuration.dart';
+import 'package:online_food_app/utils/app_preference.dart';
 import 'package:online_food_app/utils/route_constant.dart';
 import 'package:online_food_app/widget/background_image.dart';
 
@@ -11,7 +12,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _StateSplashScreen extends State<SplashScreen> {
-  bool isSwiped = false;
   @override
   void initState() {
     super.initState();
@@ -39,19 +39,11 @@ class _StateSplashScreen extends State<SplashScreen> {
   }
 
   void _moveToNextPage() async {
-    Navigator.pushReplacementNamed(context, Routes.introScreen);
-    if (AppConfiguration().isUserLoggedIn) {
-         Navigator.pushReplacementNamed(context, Routes.homeScreen);
+    bool isLoggined = await AppPreferences.getLoginStatus();
+    if (isLoggined) {
+      Navigator.pushReplacementNamed(context, Routes.homeScreen);
     } else {
       Navigator.pushReplacementNamed(context, Routes.introScreen);
     }
-  }
-
-  void _moveToLoginPage() {
-    //Navigator.pushReplacementNamed(context, Routes.login);
-  }
-
-  void _moveToSignUpPage() {
-    // Navigator.pushReplacementNamed(context, Routes.signUp);
   }
 }

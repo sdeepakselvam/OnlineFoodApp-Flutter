@@ -72,7 +72,7 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
   Widget get _headerWidget => CommonAppBar(
       title: Translations.of(context).text(StringResources.verifyPhoneNo),
       description: Translations.of(context)
-          .text(StringResources.enterOTPSent) //need to add PhoneNo
+          .text(StringResources.enterOTPSent) + " " + _controller.phoneNumber ?? ""
       );
 
   Widget get _otpTitle => Padding(
@@ -124,8 +124,13 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
           title: Translations.of(context).text(StringResources.verify),
           backgroundColor:
               _controller.isEnable ? UIColors.redColor : UIColors.inActiveColor,
-          onPressed: () {
-            stopTimer();
-            Navigator.pushNamed(context, Routes.homeScreen);
+          onPressed: () async {
+            if (_controller.isEnable) {
+              bool result = await _controller.signInToLogin();
+              if (result) {
+                stopTimer();
+                Navigator.pushNamed(context, Routes.homeScreen);
+              }
+            }
           }));
 }

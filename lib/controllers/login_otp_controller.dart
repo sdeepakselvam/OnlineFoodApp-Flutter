@@ -1,8 +1,18 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:online_food_app/model/login/login_otp_request.dart';
+import 'package:online_food_app/model/login/login_otp_response.dart';
+import 'package:online_food_app/repository/user_repository.dart';
+import 'package:online_food_app/utils/app_configuration.dart';
+import 'package:online_food_app/utils/app_preference.dart';
+import 'package:package_info/package_info.dart';
 
 class OTPController extends ChangeNotifier {
   BuildContext _context;
+
+  UserProfileRepository _userProfileRepository = UserProfileRepository();
 
   TextEditingController _otpController = TextEditingController();
   TextEditingController get otpController => _otpController;
@@ -23,6 +33,21 @@ class OTPController extends ChangeNotifier {
   static const duration = const Duration(seconds: 1);
 
   int secondsPassed = 60;
+
+  String _ipAddress;
+  String get ipAddress => _ipAddress;
+
+  String _deviceID;
+  String get deviceID => _deviceID;
+
+  String _osVersion;
+  String get osVersion => _osVersion;
+
+  String _appVersion;
+  String get appVersion => _appVersion;
+
+  String _phoneNumber;
+  String get phoneNumber =>_phoneNumber;
 
   void handleTick() {
     if (!_isEnabledResendButton) {
@@ -52,8 +77,53 @@ class OTPController extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deviceDetails() async {
+    _phoneNumber = await AppPreferences.getPhoneNumber();
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    _deviceID = androidInfo.androidId;
+    _osVersion = androidInfo.version.release;
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      _appVersion = packageInfo.version;
+    });
+    getIPAddress();
+    notifyListeners();
+  }
+
+  Future getIPAddress() async {
+    for (var interface in await NetworkInterface.list()) {
+      _ipAddress = interface.addresses.first.address;
+    }
+    notifyListeners();
+  }
+
+  Future<bool> signInToLogin() async {
+    LoginOTPResponse response = await _userProfileRepository.postSignInApi(
+        _context,
+        LoginOTPRequest(
+          otp: _otpController.text.trim(),
+          phoneNumber: _phoneNumber,
+          countryCode: await AppPreferences.getCountryCode(),
+          deviceInfo: DeviceInfo(
+              appVersion: _appVersion,
+              deviceId: _deviceID,
+              ip: _ipAddress,
+              osVersion: _osVersion,
+              platform: "ANDROID",
+              pushToken: "1234"),
+        ));
+
+    if (response != null) {
+      AppConfiguration().setUserIsLoggedIn();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void init(BuildContext context) {
     _context = context;
+    deviceDetails();
     notifyListeners();
   }
 }

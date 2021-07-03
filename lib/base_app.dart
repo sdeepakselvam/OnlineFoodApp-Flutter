@@ -19,6 +19,7 @@ class BaseApp {
     @required AppEnvironment environment,
     @required Flavor flavor,
     @required Locale startingLocale,
+    @required String baseUrl,
     @required VoidCallback onLogout,
     Widget logoWidget,
     @required isGuestFlowEnabled,
@@ -31,6 +32,7 @@ class BaseApp {
         startingLocale: startingLocale,
         title: title);
     AppConfiguration().init(
+      baseUrl: baseUrl,
       environment: environment,
       flavor: flavor,
       onLogout: onLogout,

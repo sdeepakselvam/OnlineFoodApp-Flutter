@@ -13,7 +13,7 @@ class AppConfiguration {
 
   factory AppConfiguration() => _instance;
 
-  bool _loginStatus;
+  bool _loginStatus = false;
   AppEnvironment _environment;
   Flavor _flavor;
   String _baseUrl;
