@@ -21,9 +21,6 @@ class LoginController extends ChangeNotifier {
   ];
   List<SpinnerModel> get countryOptionList => _countryOptionList;
 
-  String _ageEnd;
-  String get ageEnd => _ageEnd;
-
   void setCountryType(values) {
     _selectedCountry = values;
     notifyListeners();

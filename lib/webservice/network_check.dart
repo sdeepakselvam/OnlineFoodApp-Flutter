@@ -1,5 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:online_food_app/locale/localizations.dart';
+import 'package:online_food_app/ui_utils/string_resources.dart';
 
 class NetworkCheck {
   Future<bool> check() async {
@@ -15,7 +17,8 @@ class NetworkCheck {
     bool isNetWorkAvailable = await check();
     if (!isNetWorkAvailable) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Check your Internet Connect"),
+          content: Text(Translations.of(context)
+              .text(StringResources.checkInternetConnection)),
           backgroundColor: Colors.red,
           duration: Duration(seconds: 3)));
     }
@@ -23,7 +26,8 @@ class NetworkCheck {
 
   void showNoInternetMessage(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Check your Internet Connect"),
+        content: Text(Translations.of(context)
+            .text(StringResources.checkInternetConnection)),
         backgroundColor: Colors.red,
         duration: Duration(seconds: 3)));
   }

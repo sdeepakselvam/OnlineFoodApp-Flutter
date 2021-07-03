@@ -10,12 +10,11 @@ class Space extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: customValue != null
-          ? customValue
-          : isSmall
-          ? UIDimens.size10
-          : UIDimens.size20,
-    );
+        height: customValue != null
+            ? customValue
+            : isSmall
+                ? UIDimens.size10
+                : UIDimens.size20);
   }
 }
 
@@ -28,11 +27,10 @@ class HorizontalSpace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: customValue != null
-          ? customValue
-          : isSmall
-          ? UIDimens.size10
-          : UIDimens.size20,
-    );
+        width: customValue != null
+            ? customValue
+            : isSmall
+                ? UIDimens.size10
+                : UIDimens.size20);
   }
 }

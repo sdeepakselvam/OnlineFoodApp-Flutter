@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:online_food_app/controllers/login_otp_controller.dart';
+import 'package:online_food_app/locale/localizations.dart';
 import 'package:online_food_app/ui_utils/app_assets.dart';
+import 'package:online_food_app/ui_utils/string_resources.dart';
 import 'package:online_food_app/ui_utils/styles.dart';
 import 'package:online_food_app/ui_utils/ui_colors.dart';
 import 'package:online_food_app/ui_utils/ui_dimens.dart';
@@ -48,49 +50,39 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
         maintainBottomViewPadding: true,
         child: Scaffold(
             backgroundColor: UIColors.backgroundColor,
-            body: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                        child: ListView(
-                      children: [
-                        _headerWidget,
-                        Space(),
-                        _otpTitle,
-                        Space(),
-                        _otpField,
-                        Space(),
-                        _timeCounter,
-                        Space(),
-                        Space(),
-                        _continueButton
-                      ],
-                    )),
-                  ],
-                )
-              ],
-            )));
+            body: Stack(fit: StackFit.expand, children: <Widget>[
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Expanded(
+                    child: ListView(children: [
+                  _headerWidget,
+                  Space(),
+                  _otpTitle,
+                  Space(),
+                  _otpField,
+                  Space(),
+                  _timeCounter,
+                  Space(),
+                  Space(),
+                  _continueButton
+                ]))
+              ])
+            ])));
   }
 
   Widget get _headerWidget => CommonAppBar(
-        title: "Verify Phone No",
-        description: "Please enter OTP sent to ", //need to add PhoneNo
+      title: Translations.of(context).text(StringResources.verifyPhoneNo),
+      description: Translations.of(context)
+          .text(StringResources.enterOTPSent) //need to add PhoneNo
       );
 
   Widget get _otpTitle => Padding(
-        padding: const EdgeInsets.all(UIDimens.size20),
-        child: Text(
-          "Enter OTP",
-          style: Styles.boldStyle,
-        ),
-      );
+      padding: const EdgeInsets.all(UIDimens.size20),
+      child: Text(Translations.of(context).text(StringResources.enterOTP),
+          style: Styles.boldStyle));
 
   Widget get _otpField => Container(
-        color: Colors.transparent,
-        child: PinPut(
+      color: Colors.transparent,
+      child: PinPut(
           fieldsCount: 6,
           textStyle:
               TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -110,34 +102,30 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
           selectedFieldDecoration: BoxDecoration(
               border:
                   Border.all(width: UIDimens.size2, color: UIColors.lightGrey)),
-          preFilledWidget: Container(),
-        ),
-      );
+          preFilledWidget: Container()));
 
   Widget get _timeCounter => Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CommonIcon(iconPath: AppAssets.timeStampIcon),
-          HorizontalSpace(),
-          Text(_controller.timeDisplay, style: Styles.boldStyle),
-        ],
-      );
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CommonIcon(iconPath: AppAssets.timeStampIcon),
+            HorizontalSpace(),
+            Text(_controller.timeDisplay, style: Styles.boldStyle)
+          ]);
 
   Widget get _continueButton => Container(
-        height: UIDimens.size50,
-        margin: EdgeInsets.symmetric(horizontal: UIDimens.size20),
-        child: CommonButton(
+      height: UIDimens.size50,
+      margin: EdgeInsets.symmetric(horizontal: UIDimens.size20),
+      child: CommonButton(
           width: MediaQuery.of(context).size.width,
           showBorder: false,
-          style: Styles.boldStyle.copyWith(fontSize: 13, color: Colors.white),
-          title: "VERIFY",
+          style: Styles.boldStyle
+              .copyWith(fontSize: UIDimens.size13, color: Colors.white),
+          title: Translations.of(context).text(StringResources.verify),
           backgroundColor:
               _controller.isEnable ? UIColors.redColor : UIColors.inActiveColor,
           onPressed: () {
             stopTimer();
             Navigator.pushNamed(context, Routes.homeScreen);
-          },
-        ),
-      );
+          }));
 }

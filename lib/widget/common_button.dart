@@ -7,9 +7,11 @@ class CommonButton extends StatefulWidget {
   CommonButton(
       {this.onPressed,
       this.title,
-      this.width,this.height,
+      this.width,
+      this.height,
       this.showBorder = true,
-      this.backgroundColor,this.borderColor,
+      this.backgroundColor,
+      this.borderColor,
       this.borderRadius,
       this.style,
       this.padding});
@@ -30,7 +32,7 @@ class _CommonButtonState extends State<CommonButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        height: widget.height,
+          height: widget.height,
           width: widget.width,
           padding: widget.padding ??
               EdgeInsets.symmetric(
@@ -39,7 +41,8 @@ class _CommonButtonState extends State<CommonButton> {
           decoration: BoxDecoration(
               color: widget.backgroundColor ?? Colors.white,
               border: widget.showBorder
-                  ? Border.all(color: widget.borderColor ?? Colors.grey, width: 1)
+                  ? Border.all(
+                      color: widget.borderColor ?? Colors.grey, width: 1)
                   : null,
               borderRadius: BorderRadius.all(
                   Radius.circular(widget.borderRadius ?? UIDimens.size5))),

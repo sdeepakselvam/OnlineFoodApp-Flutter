@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 
 class OTPController extends ChangeNotifier {
@@ -12,7 +11,8 @@ class OTPController extends ChangeNotifier {
 
   bool get isEnabledResendButton => _isEnabledResendButton;
 
-  bool get isEnable => _otpController.text.isNotEmpty && _otpController.text.length == 6;
+  bool get isEnable =>
+      _otpController.text.isNotEmpty && _otpController.text.length == 6;
 
   Timer countDownTimer;
 
@@ -27,7 +27,6 @@ class OTPController extends ChangeNotifier {
   void handleTick() {
     if (!_isEnabledResendButton) {
       secondsPassed = secondsPassed - 1;
-
       int seconds = secondsPassed % 60;
       int minutes = secondsPassed ~/ 60;
       _timeDisplay = minutes.toString().padLeft(2, '0') +
@@ -41,7 +40,6 @@ class OTPController extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   Future<void> startTimer() {
     countDownTimer = Timer.periodic(duration, (Timer t) {
