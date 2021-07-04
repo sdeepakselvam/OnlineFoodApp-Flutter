@@ -1,7 +1,5 @@
 # OnlineFoodApp-Flutter
 
-# appfrontend-flutter
-
 This is Online Food order Application using Flutter.
 
 ## Getting Started
