@@ -3,8 +3,6 @@ import 'package:online_food_app/api_utils/api_config.dart';
 import 'package:online_food_app/base_app.dart';
 import 'package:online_food_app/utils/app_constants.dart';
 import 'package:online_food_app/utils/logout_utils.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 import 'route_manager.dart' as routes;
 
 void main() {

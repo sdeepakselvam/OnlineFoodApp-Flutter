@@ -1,12 +1,14 @@
 class LoginOTPResponse {
   bool success;
+  int statusCode;
   String timestamp;
   Data data;
 
-  LoginOTPResponse({this.success, this.timestamp, this.data});
+  LoginOTPResponse({this.success, this.statusCode, this.timestamp, this.data});
 
   LoginOTPResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
+    statusCode = json['statusCode'];
     timestamp = json['timestamp'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }

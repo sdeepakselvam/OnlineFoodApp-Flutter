@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:online_food_app/controllers/login_otp_controller.dart';
 import 'package:online_food_app/locale/localizations.dart';
 import 'package:online_food_app/ui_utils/app_assets.dart';
@@ -6,12 +7,12 @@ import 'package:online_food_app/ui_utils/string_resources.dart';
 import 'package:online_food_app/ui_utils/styles.dart';
 import 'package:online_food_app/ui_utils/ui_colors.dart';
 import 'package:online_food_app/ui_utils/ui_dimens.dart';
-import 'package:online_food_app/utils/route_constant.dart';
 import 'package:online_food_app/widget/common_app_bar.dart';
 import 'package:online_food_app/widget/common_button.dart';
 import 'package:online_food_app/widget/common_icon.dart';
 import 'package:online_food_app/widget/space.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+import 'package:http/http.dart' as http;
 
 class LoginOTPScreen extends StatefulWidget {
   @override
@@ -24,11 +25,11 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
   @override
   void initState() {
     _controller = OTPController();
-    _controller.init(context);
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _controller.init(context));
     _controller.addListener(() {
       setState(() {});
     });
-    _controller.startTimer();
     super.initState();
   }
 
@@ -39,9 +40,11 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
   }
 
   void stopTimer() {
-    if (_controller.countDownTimer.isActive) {
-      _controller.countDownTimer.cancel();
-    }
+    setState(() {
+      if (_controller.countDownTimer.isActive) {
+        _controller.countDownTimer.cancel();
+      }
+    });
   }
 
   @override
@@ -71,9 +74,9 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
 
   Widget get _headerWidget => CommonAppBar(
       title: Translations.of(context).text(StringResources.verifyPhoneNo),
-      description: Translations.of(context)
-          .text(StringResources.enterOTPSent) + " " + _controller.phoneNumber ?? ""
-      );
+      description: Translations.of(context).text(StringResources.enterOTPSent) +
+          " " +
+          _controller.phoneNumber);
 
   Widget get _otpTitle => Padding(
       padding: const EdgeInsets.all(UIDimens.size20),
@@ -82,36 +85,52 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
 
   Widget get _otpField => Container(
       color: Colors.transparent,
+      margin: EdgeInsets.symmetric(horizontal: UIDimens.size20),
       child: PinPut(
           fieldsCount: 6,
+          onSubmit: (String pin) => {},
+          focusNode: FocusNode(),
           textStyle:
               TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          enabled: true,
           controller: _controller.otpController,
-          fieldsAlignment: MainAxisAlignment.center,
           eachFieldMargin: EdgeInsets.all(UIDimens.size5),
           submittedFieldDecoration: BoxDecoration(
-              border:
-                  Border.all(width: UIDimens.size2, color: UIColors.lightGrey)),
+              border: Border.all(width: UIDimens.size2, color: Colors.grey)),
           followingFieldDecoration: BoxDecoration(
-              border:
-                  Border.all(width: UIDimens.size2, color: UIColors.lightGrey)),
-          disabledDecoration: BoxDecoration(
-              border:
-                  Border.all(width: UIDimens.size2, color: UIColors.lightGrey)),
+              border: Border.all(width: UIDimens.size2, color: Colors.grey)),
           selectedFieldDecoration: BoxDecoration(
-              border:
-                  Border.all(width: UIDimens.size2, color: UIColors.lightGrey)),
-          preFilledWidget: Container()));
+              border: Border.all(width: UIDimens.size2, color: Colors.grey))));
 
-  Widget get _timeCounter => Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CommonIcon(iconPath: AppAssets.timeStampIcon),
-            HorizontalSpace(),
-            Text(_controller.timeDisplay, style: Styles.boldStyle)
-          ]);
+  Widget get _timeCounter => InkWell(
+        onTap: () {
+          if (_controller.isEnabledResendButton) {
+            Navigator.pop(context);
+          }
+        },
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (!_controller.isEnabledResendButton) ...[
+                CommonIcon(iconPath: AppAssets.timeStampIcon),
+                HorizontalSpace(),
+                Text(_controller.timeDisplay, style: Styles.boldStyle)
+              ],
+              if (_controller.isEnabledResendButton) ...[
+                HorizontalSpace(),
+                Text(
+                    Translations.of(context)
+                        .text(StringResources.otpNotReceived),
+                    style: Styles.boldStyle),
+                Spacer(),
+                CommonIcon(iconPath: AppAssets.resendIcon),
+                HorizontalSpace(),
+                Text(Translations.of(context).text(StringResources.resend),
+                    style: Styles.boldStyle.copyWith(color: UIColors.redColor)),
+                HorizontalSpace()
+              ]
+            ]),
+      );
 
   Widget get _continueButton => Container(
       height: UIDimens.size50,
@@ -126,11 +145,9 @@ class _LoginOTPScreen extends State<LoginOTPScreen> {
               _controller.isEnable ? UIColors.redColor : UIColors.inActiveColor,
           onPressed: () async {
             if (_controller.isEnable) {
-              bool result = await _controller.signInToLogin();
-              if (result) {
-                stopTimer();
-                Navigator.pushNamed(context, Routes.homeScreen);
-              }
+              stopTimer();
+              FocusScope.of(context).requestFocus(new FocusNode());
+              await _controller.signInToLogin();
             }
           }));
 }

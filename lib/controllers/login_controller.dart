@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:online_food_app/model/login/login_otp_response.dart';
 import 'package:online_food_app/model/login/login_request.dart';
 import 'package:online_food_app/model/login/login_response.dart';
 import 'package:online_food_app/model/spinner_model.dart';
 import 'package:online_food_app/repository/user_repository.dart';
-import 'package:online_food_app/utils/app_configuration.dart';
 import 'package:online_food_app/utils/app_preference.dart';
 
 class LoginController extends ChangeNotifier {

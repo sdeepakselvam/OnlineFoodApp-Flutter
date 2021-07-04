@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:online_food_app/model/login/login_otp_request.dart';
 import 'package:online_food_app/model/login/login_otp_response.dart';
 import 'package:online_food_app/repository/user_repository.dart';
-import 'package:online_food_app/utils/app_configuration.dart';
+import 'package:online_food_app/utils/app_constants.dart';
 import 'package:online_food_app/utils/app_preference.dart';
+import 'package:online_food_app/utils/route_constant.dart';
 import 'package:package_info/package_info.dart';
 
 class OTPController extends ChangeNotifier {
@@ -21,8 +23,7 @@ class OTPController extends ChangeNotifier {
 
   bool get isEnabledResendButton => _isEnabledResendButton;
 
-  bool get isEnable =>
-      _otpController.text.isNotEmpty && _otpController.text.length == 6;
+  bool get isEnable => _otpController.text.isNotEmpty;
 
   Timer countDownTimer;
 
@@ -46,8 +47,8 @@ class OTPController extends ChangeNotifier {
   String _appVersion;
   String get appVersion => _appVersion;
 
-  String _phoneNumber;
-  String get phoneNumber =>_phoneNumber;
+  String _phoneNumber = "";
+  String get phoneNumber => _phoneNumber;
 
   void handleTick() {
     if (!_isEnabledResendButton) {
@@ -97,7 +98,7 @@ class OTPController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> signInToLogin() async {
+  Future<void> signInToLogin() async {
     LoginOTPResponse response = await _userProfileRepository.postSignInApi(
         _context,
         LoginOTPRequest(
@@ -109,20 +110,18 @@ class OTPController extends ChangeNotifier {
               deviceId: _deviceID,
               ip: _ipAddress,
               osVersion: _osVersion,
-              platform: "ANDROID",
-              pushToken: "1234"),
+              platform: AppConstants.android,
+              pushToken: "123456"),
         ));
-
-    if (response != null) {
-      AppConfiguration().setUserIsLoggedIn();
-      return true;
-    } else {
-      return false;
+    if (response.statusCode == 200) {
+      Navigator.pushReplacementNamed(_context, Routes.homeScreen);
     }
+    notifyListeners();
   }
 
   void init(BuildContext context) {
     _context = context;
+    startTimer();
     deviceDetails();
     notifyListeners();
   }

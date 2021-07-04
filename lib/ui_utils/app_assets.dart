@@ -16,9 +16,9 @@ class AppAssets {
   static final String offerIcon = "assets/icons/offer_icon.png";
   static final String switchOnIcon = "assets/icons/switch_on_icon.png";
   static final String switchOffIcon = "assets/icons/switch_off_icon.png";
+  static final String resendIcon = "assets/icons/resend_icon.png";
 
   //default food icons
   static final String defaultIcon = "assets/icons/default_food_icon.png";
   static final String deliveryIcon = "assets/icons/delivery_icon.png";
-
 }

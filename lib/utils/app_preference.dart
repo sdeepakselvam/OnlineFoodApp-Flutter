@@ -51,6 +51,8 @@ class AppPreferences {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     await localStorage.remove(_loginStatus);
     await localStorage.remove(_token);
+    await localStorage.remove(_phoneNumber);
+    await localStorage.remove(_countryCode);
 
     await clearSecurelyStoredPreferences();
   }

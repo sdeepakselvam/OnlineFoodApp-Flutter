@@ -37,7 +37,7 @@ class CommonAppBar extends StatelessWidget {
           Space(isSmall: true),
           Padding(
               padding: const EdgeInsets.only(left: UIDimens.size5),
-              child: Text(description ?? "",
+              child: Text(description,
                   style: Styles.appBarTitle.copyWith(color: Colors.white))),
           Space(isSmall: true)
         ]));

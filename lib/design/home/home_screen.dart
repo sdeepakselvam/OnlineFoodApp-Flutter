@@ -83,9 +83,12 @@ class _HomeScreen extends State<HomeScreen> {
             onTap: () {}),
         ListTile(
             title: Text(Translations.of(context).text(StringResources.logout)),
-            onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  Routes.login, (Route<dynamic> route) => false);
+            onTap: () async {
+              bool result = await _controller.logout();
+              if (result) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    Routes.login, (Route<dynamic> route) => false);
+              }
             })
       ]));
 
@@ -190,8 +193,7 @@ class _HomeScreen extends State<HomeScreen> {
         child: Padding(
           padding: const EdgeInsets.all(UIDimens.size20),
           child: Text(Translations.of(context).text(StringResources.emptyList),
-              textAlign: TextAlign.center,
-              style: Styles.boldStyle),
+              textAlign: TextAlign.center, style: Styles.boldStyle),
         ),
       );
 
@@ -216,7 +218,7 @@ class _HomeScreen extends State<HomeScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: UIDimens.size20,
                                 vertical: UIDimens.size10),
-                            margin: EdgeInsets.only(bottom: 5),
+                            margin: EdgeInsets.only(bottom: UIDimens.size5),
                             child: Column(children: [
                               Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -409,7 +411,7 @@ class _HomeScreen extends State<HomeScreen> {
                                       width: UIDimens.size100,
                                       height: UIDimens.size30,
                                       title:
-                                          "Today in ${_controller.productList[index].expressDeliveryIn.toString()} min", //Translations.of(context).text(StringResources.offers),
+                                          "Today in ${_controller.productList[index].expressDeliveryIn.toString()} min",
                                       padding: EdgeInsets.all(
                                           UIDimens.paddingXXXSmall),
                                       backgroundColor: Colors.white,

@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:online_food_app/model/product/product_list_response.dart';
 import 'package:online_food_app/repository/product_repository.dart';
+import 'package:online_food_app/repository/user_repository.dart';
+import 'package:online_food_app/utils/app_preference.dart';
 
 class HomeController extends ChangeNotifier {
   BuildContext _context;
 
   ProductRepository _productRepository = ProductRepository();
+  UserProfileRepository _userProfileRepository = UserProfileRepository();
 
   TextEditingController _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
@@ -57,7 +60,17 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void init(BuildContext context) async {
+  Future<bool> logout() async {
+    bool result = await _userProfileRepository.signOut(_context);
+    if (result) {
+      await AppPreferences.logoutClearPreferences();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void init(BuildContext context) {
     _context = context;
     setLocation(true);
     notifyListeners();

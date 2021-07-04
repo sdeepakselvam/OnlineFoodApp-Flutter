@@ -38,4 +38,6 @@ class StringResources {
   static const String loading = "loading";
   static const String emptyPhoneNo = "empty_phone_no";
   static const String emptyList = "empty_list";
+  static const String resend = "resend";
+  static const String otpNotReceived = "otp_not_received";
 }

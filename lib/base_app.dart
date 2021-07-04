@@ -1,11 +1,9 @@
 import 'dart:async';
-
+import 'app.dart';
+import 'locale/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pedantic/pedantic.dart';
-
-import 'app.dart';
-import 'locale/localizations.dart';
 import 'utils/app_configuration.dart';
 
 enum AppEnvironment { DEVELOPMENT, PRODUCTION, QA, STAGING }
@@ -44,9 +42,7 @@ class BaseApp {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]));
 
     unawaited(runZoned<Future<void>>(() async {
-
-      runApp( app,
-      );
+      runApp(app);
     }, onError: (error) {
       print(error);
     }));

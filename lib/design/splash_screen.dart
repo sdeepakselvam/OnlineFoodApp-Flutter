@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:online_food_app/ui_utils/app_assets.dart';
-import 'package:online_food_app/utils/app_configuration.dart';
 import 'package:online_food_app/utils/app_preference.dart';
 import 'package:online_food_app/utils/route_constant.dart';
 import 'package:online_food_app/widget/background_image.dart';
