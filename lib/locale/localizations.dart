@@ -75,7 +75,6 @@ class Translations {
         LanguageChangedListener().onChange(locale);
         localizedValues = json.decode(localeJson);
       } catch (e) {
-        print("Invaid locale json: $e");
         return null;
       }
     } catch (ex) {

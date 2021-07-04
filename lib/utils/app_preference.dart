@@ -12,10 +12,8 @@ class AppPreferences {
   static const _loginStatus = "login_status";
   static const _userLanguage = "user_language";
   static const _token = "token";
-  static const _userId = "user_id";
-  static const _userName = "user_name";
-  static const _userEmail = "user_email";
-
+  static const _phoneNumber = "phone_number";
+  static const _countryCode = "country_code";
 
   static Future<void> setAuthenticationToken(String token) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -27,7 +25,6 @@ class AppPreferences {
     String token = localStorage.getString(_token);
     return token;
   }
-
 
   static Future<void> setLoginStatus(bool loginStatus) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -54,6 +51,8 @@ class AppPreferences {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     await localStorage.remove(_loginStatus);
     await localStorage.remove(_token);
+    await localStorage.remove(_phoneNumber);
+    await localStorage.remove(_countryCode);
 
     await clearSecurelyStoredPreferences();
   }
@@ -73,7 +72,7 @@ class AppPreferences {
   static Future<AppEnvironment> getCurrentEnvironment() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     String currentEnvironmentString =
-    localStorage.getString(_currentEnvironment);
+        localStorage.getString(_currentEnvironment);
     if (currentEnvironmentString != null &&
         currentEnvironmentString.isNotEmpty) {
       return EnumToString.fromString(
@@ -82,32 +81,23 @@ class AppPreferences {
     return null;
   }
 
-  static Future<void> setUserName(value) async {
+  static Future<void> setPhoneNumber(value) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    unawaited(localStorage.setString(_userName, value));
+    unawaited(localStorage.setString(_phoneNumber, value));
   }
 
-  static Future<String> getUserName() async {
+  static Future<String> getPhoneNumber() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    return localStorage.getString(_userName);
+    return localStorage.getString(_phoneNumber);
   }
 
-  static Future<void> setUserEmail(value) async {
+  static Future<void> setCountryCode(value) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    unawaited(localStorage.setString(_userEmail, value));
+    unawaited(localStorage.setString(_countryCode, value));
   }
 
-  static Future<String> getUserEmail() async {
+  static Future<String> getCountryCode() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    return localStorage.getString(_userEmail);
-  }
-  static Future<void> setUserId(value) async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    unawaited(localStorage.setString(_userId, value));
-  }
-
-  static Future<String> getUserId() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    return localStorage.getString(_userId);
+    return localStorage.getString(_countryCode);
   }
 }

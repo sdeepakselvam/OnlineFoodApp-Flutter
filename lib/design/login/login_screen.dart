@@ -126,8 +126,18 @@ class _LoginScreen extends State<LoginScreen> {
               .text(StringResources.continues)
               .toUpperCase(),
           backgroundColor: UIColors.redColor,
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.otpScreen);
+          onPressed: () async {
+            if (_controller.isEnable) {
+              bool result = await _controller.login();
+              if (result) {
+                Navigator.pushNamed(context, Routes.otpScreen);
+              }
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(Translations.of(context)
+                      .text(StringResources.emptyPhoneNo))));
+            }
           }));
 
   Widget get _orTitle => Center(

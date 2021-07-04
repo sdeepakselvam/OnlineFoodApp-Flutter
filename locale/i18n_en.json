@@ -34,5 +34,10 @@
   "accurate_address": "For accurate address and hassle free",
   "device_location": "Device Location",
   "deliver_location": "deliver use device Location",
-  "address_manually": "Address Manually"
+  "address_manually": "Address Manually",
+  "loading": "Loading...",
+  "empty_phone_no": "Please enter the Phone Number..",
+  "empty_list": "Currently, There is no Food items in this Location. \n Please try again Later.",
+  "resend": "Resend",
+  "otp_not_received": "Didn't received OTP"
 }

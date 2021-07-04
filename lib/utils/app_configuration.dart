@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:online_food_app/utils/app_preference.dart';
 import '../locale/localizations.dart';
-
 import '../base_app.dart';
 
 class AppConfiguration {
@@ -13,7 +12,7 @@ class AppConfiguration {
 
   factory AppConfiguration() => _instance;
 
-  bool _loginStatus;
+  bool _loginStatus = false;
   AppEnvironment _environment;
   Flavor _flavor;
   String _baseUrl;
@@ -30,8 +29,6 @@ class AppConfiguration {
     @required translationsDelegate,
     @required supportedLocals,
   }) async {
-   // assert(baseUrl != null);
-   // _baseUrl = baseUrl;
     _environment = environment;
     _flavor = flavor;
     _onLogout = onLogout;

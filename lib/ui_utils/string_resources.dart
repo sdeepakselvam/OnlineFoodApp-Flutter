@@ -35,4 +35,9 @@ class StringResources {
   static const String deviceLocation = "device_location";
   static const String deliverLocation = "deliver_location";
   static const String addressManually = "address_manually";
+  static const String loading = "loading";
+  static const String emptyPhoneNo = "empty_phone_no";
+  static const String emptyList = "empty_list";
+  static const String resend = "resend";
+  static const String otpNotReceived = "otp_not_received";
 }

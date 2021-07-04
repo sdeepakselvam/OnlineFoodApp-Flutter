@@ -30,6 +30,7 @@ class UIDimens {
   static const double size100 = 100.0;
   static const double size130 = 130.0;
   static const double size150 = 150.0;
+  static const double size160 = 160.0;
   static const double size200 = 200.0;
   static const double size250 = 250.0;
   static const double size260 = 260.0;

@@ -104,7 +104,10 @@ class CustomBottomSheetWidget {
       StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
         return InkWell(
             onTap: () {
-              setState(() {});
+              setState(() {
+                Navigator.pop(context);
+                homeController.setLocation(true);
+              });
             },
             child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -127,7 +130,7 @@ class CustomBottomSheetWidget {
                                     .toUpperCase(),
                                 style: Styles.boldStyle),
                             Space(customValue: UIDimens.paddingXXSmall),
-                            Text("47 W 13th St, New York, NY 10011, USA",
+                            Text("A-123,Sector, New York, NY 10011, USA",
                                 style: Styles.appBarTitle
                                     .copyWith(color: Colors.grey))
                           ])
@@ -138,7 +141,10 @@ class CustomBottomSheetWidget {
       StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
         return InkWell(
             onTap: () {
-              setState(() {});
+              setState(() {
+                Navigator.pop(context);
+                homeController.setLocation(false);
+              });
             },
             child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -160,7 +166,7 @@ class CustomBottomSheetWidget {
                                     .text(StringResources.work),
                                 style: Styles.boldStyle),
                             Space(customValue: UIDimens.paddingXXSmall),
-                            Text("47 W 13th St, New York, NY 10011, USA",
+                            Text("W-55, Sector-No 2,New York USA",
                                 style: Styles.appBarTitle
                                     .copyWith(color: Colors.grey))
                           ])
